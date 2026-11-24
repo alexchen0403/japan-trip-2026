@@ -1,0 +1,2036 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#00A3E0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>日本行 2026.11.26–12.04</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --sky: #00A3E0;
+      --deep: #0083C1;
+      --yellow: #FFB400;
+      --red: #E8262A;
+      --orange: #F28C00;
+      --green: #6CC287;
+      --navy: #1F3550;
+      --paper: #FFFDF7;
+      --card-bg: #FFFFFF;
+      --muted: #5E738B;
+      --line-soft: rgba(31, 53, 80, 0.1);
+      --shadow: 0 8px 24px rgba(0, 131, 193, 0.10), 0 2px 6px rgba(31, 53, 80, 0.05);
+      --shadow-sm: 0 4px 14px rgba(0, 131, 193, 0.08);
+      --radius: 20px;
+      --font-head: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "PingFang TC", "Noto Sans TC", -apple-system, sans-serif;
+      --font-body: "Noto Sans TC", "PingFang TC", "Hiragino Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: #EEF5FA;
+      color: var(--navy);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    .app-shell {
+      position: relative;
+      width: 100%;
+      max-width: 480px;
+      min-height: 100vh;
+      min-height: 100dvh;
+      margin: 0 auto;
+      background-color: var(--paper);
+      padding-bottom: calc(78px + env(safe-area-inset-bottom, 0px));
+      box-shadow: 0 0 40px rgba(31, 53, 80, 0.08);
+      overflow-x: clip;
+    }
+
+    /* 極淡和紙纖維紋 (3.5% 透明度) */
+    .washi-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* 1. 頁首：大斜切空色色塊 + 城市天際線剪影 */
+    .hero-header {
+      position: relative;
+      background: linear-gradient(155deg, var(--sky) 0%, var(--deep) 100%);
+      color: #FFFFFF;
+      padding: calc(18px + env(safe-area-inset-top, 0px)) 20px 38px;
+      clip-path: polygon(0 0, 100% 0, 100% 84%, 0 100%);
+      overflow: hidden;
+      z-index: 2;
+    }
+
+    .hero-header::before {
+      content: "";
+      position: absolute;
+      right: -36px;
+      top: -40px;
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.10);
+      pointer-events: none;
+    }
+
+    .hero-top {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .hero-title {
+      margin: 0;
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 1.65rem;
+      letter-spacing: 0.03em;
+      line-height: 1.2;
+      text-shadow: 0 2px 8px rgba(0, 80, 130, 0.22);
+    }
+
+    .hero-dates {
+      margin-top: 4px;
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 0.86rem;
+      opacity: 0.92;
+      letter-spacing: 0.04em;
+    }
+
+    .countdown-pill {
+      flex-shrink: 0;
+      background: rgba(255, 253, 247, 0.96);
+      color: var(--deep);
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 0.82rem;
+      padding: 6px 12px;
+      border-radius: 999px;
+      box-shadow: 0 4px 12px rgba(0, 70, 120, 0.18);
+      white-space: nowrap;
+    }
+
+    .countdown-pill.is-live {
+      background: var(--yellow);
+      color: var(--navy);
+    }
+
+    /* 城市天際線剪影 */
+    .skyline-stage {
+      position: relative;
+      height: 62px;
+      margin-top: 8px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .skyline-svg {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -8px;
+      width: 100%;
+      height: 68px;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 320ms ease, transform 320ms ease;
+    }
+
+    .skyline-svg.is-active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* 2. 日期列（橫向滑動 + 朱紅圓形印章） */
+    .date-strip-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 253, 247, 0.94);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0, 163, 224, 0.12);
+      margin-top: -12px;
+      padding: 10px 0 10px;
+    }
+
+    .date-strip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 7px 16px 9px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .date-strip::-webkit-scrollbar {
+      display: none;
+    }
+
+    .date-stamp-btn {
+      flex: 0 0 auto;
+      width: 50px;
+      height: 50px;
+      min-width: 48px;
+      min-height: 48px;
+      border-radius: 50%;
+      border: 2px solid rgba(232, 38, 42, 0.68);
+      background: #FFFDF9;
+      color: var(--red);
+      font-family: var(--font-head);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      cursor: pointer;
+      transform: rotate(-6deg);
+      transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1), background-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
+      box-shadow: inset 0 0 0 1px rgba(232, 38, 42, 0.15);
+    }
+
+    .date-stamp-btn .stamp-day {
+      font-size: 1.02rem;
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    .date-stamp-btn .stamp-dow {
+      font-size: 0.68rem;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-top: 1px;
+    }
+
+    .date-stamp-btn.is-active {
+      background: var(--red);
+      border-color: var(--red);
+      color: #FFFFFF;
+      transform: rotate(-6deg) scale(1.12);
+      box-shadow: 0 5px 14px rgba(232, 38, 42, 0.34);
+    }
+
+    .date-divider {
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 46px;
+      padding: 0 3px;
+      position: relative;
+    }
+
+    .date-divider::before {
+      content: "";
+      width: 1px;
+      height: 100%;
+      background: rgba(0, 131, 193, 0.28);
+    }
+
+    .date-divider span {
+      position: absolute;
+      background: var(--paper);
+      padding: 1px 2px;
+      font-size: 0.78rem;
+      line-height: 1;
+    }
+
+    /* 3. 當日主題條 */
+    .day-banner {
+      margin: 12px 14px 8px;
+      padding: 13px 16px;
+      background: #FFFFFF;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(0, 163, 224, 0.14);
+      position: relative;
+      z-index: 2;
+    }
+
+    .day-banner-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .day-city-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 1.05rem;
+      color: var(--deep);
+    }
+
+    .day-leave-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(0, 163, 224, 0.10);
+      color: var(--deep);
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    .day-mood {
+      margin-top: 5px;
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: var(--navy);
+    }
+
+    /* 4. 時間軸 */
+    .view-panel {
+      position: relative;
+      z-index: 2;
+    }
+
+    .view-panel[hidden] {
+      display: none !important;
+    }
+
+    .timeline-list {
+      position: relative;
+      margin: 10px 14px 20px;
+      padding: 4px 0 8px 24px;
+    }
+
+    /* 垂直空色線 */
+    .timeline-list::before {
+      content: "";
+      position: absolute;
+      left: 7px;
+      top: 14px;
+      bottom: 18px;
+      width: 2.5px;
+      background: linear-gradient(180deg, var(--sky) 0%, rgba(0, 163, 224, 0.35) 100%);
+      border-radius: 2px;
+    }
+
+    .tl-item {
+      position: relative;
+      margin-bottom: 13px;
+    }
+
+    /* 捲進畫面浮現動效 */
+    @media (prefers-reduced-motion: no-preference) {
+      .tl-item.will-animate {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      .tl-item.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 320ms ease, transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+    }
+
+    /* 時間軸圓點 */
+    .tl-dot {
+      position: absolute;
+      left: -22px;
+      top: 20px;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 3px solid var(--sky);
+      box-shadow: 0 0 0 3px var(--paper);
+      z-index: 3;
+    }
+
+    .tl-item.has-no-time .tl-dot {
+      width: 11px;
+      height: 11px;
+      left: -21px;
+      border-width: 2.5px;
+    }
+
+    .tl-item.is-now .tl-dot {
+      background: var(--yellow);
+      border-color: var(--yellow);
+      box-shadow: 0 0 0 4px rgba(255, 180, 0, 0.32);
+    }
+
+    .tl-item.is-done .tl-dot {
+      background: var(--green);
+      border-color: var(--green);
+    }
+
+    /* 情境小卡片 */
+    .place-card {
+      position: relative;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(0, 131, 193, 0.09);
+      overflow: hidden;
+      transition: opacity 200ms ease, box-shadow 200ms ease;
+    }
+
+    /* 分類左側色條 */
+    .place-card::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 5px;
+      background: var(--cat-color, var(--sky));
+      z-index: 2;
+    }
+
+    .place-card[data-type="transport"] { --cat-color: var(--sky); --cat-tint: rgba(0, 163, 224, 0.12); }
+    .place-card[data-type="flight"]    { --cat-color: var(--deep); --cat-tint: rgba(0, 131, 193, 0.12); }
+    .place-card[data-type="food"]      { --cat-color: var(--orange); --cat-tint: rgba(242, 140, 0, 0.13); }
+    .place-card[data-type="shop"]      { --cat-color: var(--yellow); --cat-tint: rgba(255, 180, 0, 0.15); }
+    .place-card[data-type="sight"]     { --cat-color: var(--green); --cat-tint: rgba(108, 194, 135, 0.15); }
+    .place-card[data-type="hotel"]     { --cat-color: var(--navy); --cat-tint: rgba(31, 53, 80, 0.11); }
+    .place-card[data-type="onsen"]     { --cat-color: var(--red); --cat-tint: rgba(232, 38, 42, 0.12); }
+
+    /* NOW 山吹黃光暈 */
+    .tl-item.is-now .place-card {
+      border-color: var(--yellow);
+      box-shadow: 0 0 0 2px rgba(255, 180, 0, 0.55), 0 10px 26px rgba(255, 180, 0, 0.24);
+    }
+
+    /* 完成狀態：半透明 + 「済」印章 */
+    .tl-item.is-done .place-card {
+      opacity: 0.56;
+    }
+
+    .sumi-stamp {
+      display: none;
+      position: absolute;
+      right: 52px;
+      top: 10px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid var(--red);
+      color: var(--red);
+      background: rgba(255, 253, 247, 0.92);
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 0.9rem;
+      align-items: center;
+      justify-content: center;
+      transform: rotate(-12deg);
+      pointer-events: none;
+      z-index: 5;
+      box-shadow: inset 0 0 0 1px rgba(232, 38, 42, 0.25);
+    }
+
+    .tl-item.is-done .sumi-stamp {
+      display: flex;
+    }
+
+    /* 卡片可點擊主體 */
+    .card-head-wrap {
+      position: relative;
+    }
+
+    .card-summary {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 48px 13px 16px;
+      cursor: pointer;
+      min-height: 68px;
+      user-select: none;
+    }
+
+    .card-main {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .card-meta-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 3px;
+    }
+
+    .time-chip {
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 0.78rem;
+      color: var(--deep);
+      background: rgba(0, 163, 224, 0.11);
+      padding: 1px 7px;
+      border-radius: 6px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .now-chip {
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      background: var(--yellow);
+      color: var(--navy);
+      padding: 1px 7px;
+      border-radius: 6px;
+    }
+
+    .alert-chip {
+      font-size: 0.73rem;
+      font-weight: 700;
+      background: rgba(232, 38, 42, 0.11);
+      color: var(--red);
+      border: 1px solid rgba(232, 38, 42, 0.28);
+      padding: 1px 7px;
+      border-radius: 6px;
+    }
+
+    .card-title-row {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .card-emoji {
+      flex-shrink: 0;
+      font-size: 1.15rem;
+      line-height: 1.2;
+    }
+
+    .card-title {
+      margin: 0;
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 1rem;
+      line-height: 1.35;
+      color: var(--navy);
+      word-break: break-word;
+    }
+
+    .card-brief {
+      margin: 3px 0 0;
+      font-size: 0.82rem;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .place-card.is-open .card-brief {
+      white-space: normal;
+      overflow: visible;
+    }
+
+    /* 收合時右側 56px 圓角縮圖 */
+    .card-thumb {
+      flex: 0 0 56px;
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--cat-tint);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.55rem;
+      border: 1px solid rgba(31, 53, 80, 0.06);
+    }
+
+    .card-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .place-card.is-open .card-thumb {
+      display: none;
+    }
+
+    /* 右上角圓形勾選框 (觸控範圍 44x44px) */
+    .done-btn {
+      position: absolute;
+      top: 6px;
+      right: 4px;
+      width: 44px;
+      height: 44px;
+      border: none;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 6;
+      padding: 0;
+    }
+
+    .done-circle {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid rgba(31, 53, 80, 0.28);
+      background: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      color: transparent;
+      transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+    }
+
+    .tl-item.is-done .done-circle {
+      background: var(--green);
+      border-color: var(--green);
+      color: #FFFFFF;
+    }
+
+    /* 車票卡片樣式 (有 from / to 的交通卡) */
+    .place-card.is-ticket::before {
+      display: none;
+    }
+
+    .ticket-layout {
+      display: flex;
+      align-items: stretch;
+      position: relative;
+      cursor: pointer;
+      min-height: 82px;
+    }
+
+    .ticket-stub {
+      flex: 0 0 64px;
+      background: rgba(0, 163, 224, 0.09);
+      border-right: 2px dashed rgba(0, 131, 193, 0.34);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 4px;
+      position: relative;
+      color: var(--deep);
+    }
+
+    /* 車票撕線上下半圓缺口 */
+    .ticket-stub::before,
+    .ticket-stub::after {
+      content: "";
+      position: absolute;
+      right: -8px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--paper);
+      box-shadow: inset 0 0 0 1px rgba(0, 131, 193, 0.12);
+    }
+
+    .ticket-stub::before { top: -7px; }
+    .ticket-stub::after  { bottom: -7px; }
+
+    .ticket-stub-emoji {
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+
+    .ticket-stub-time {
+      margin-top: 4px;
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 0.78rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .ticket-body {
+      flex: 1 1 auto;
+      min-width: 0;
+      padding: 12px 46px 12px 14px;
+    }
+
+    .ticket-route {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 0.98rem;
+      color: var(--navy);
+    }
+
+    .ticket-arrow {
+      color: var(--sky);
+      font-weight: 900;
+      font-size: 0.9rem;
+    }
+
+    .ticket-subrow {
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .ticket-type-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 1px 7px;
+      border-radius: 6px;
+      background: rgba(0, 163, 224, 0.12);
+      color: var(--deep);
+    }
+
+    /* 展開區域：頂端 16:9 照片 + 完整資訊 + Google 路線按鈕 */
+    .card-hero-media {
+      display: none;
+      margin: 10px 12px 0 15px;
+      aspect-ratio: 16 / 9;
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--cat-tint);
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      position: relative;
+    }
+
+    .card-hero-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .place-card.is-open .card-hero-media {
+      display: flex;
+    }
+
+    .card-expand {
+      display: none;
+      padding: 0 16px 14px 16px;
+      border-top: 1px dashed rgba(31, 53, 80, 0.10);
+      margin-top: 2px;
+      padding-top: 10px;
+    }
+
+    .place-card.is-ticket .card-expand {
+      margin-left: 0;
+      padding-left: 16px;
+    }
+
+    .place-card.is-open .card-expand {
+      display: block;
+    }
+
+    .detail-list {
+      margin: 0 0 10px;
+      padding-left: 18px;
+      font-size: 0.85rem;
+      color: var(--navy);
+    }
+
+    .detail-list li {
+      margin-bottom: 4px;
+    }
+
+    .planb-box {
+      margin: 8px 0 10px;
+      padding: 9px 12px;
+      border: 1.5px dashed var(--orange);
+      border-radius: 12px;
+      background: rgba(242, 140, 0, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-size: 0.84rem;
+    }
+
+    .planb-label {
+      font-family: var(--font-head);
+      font-weight: 900;
+      color: var(--orange);
+      margin-right: 4px;
+    }
+
+    .planb-route-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #FFFFFF;
+      border: 1px solid rgba(242, 140, 0, 0.4);
+      color: var(--navy);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    /* 地圖與路線導航按鈕列 (觸控 >= 44px) */
+    .map-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+
+    .btn-route {
+      flex: 1 1 170px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 12px;
+      background: var(--sky);
+      color: #FFFFFF;
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 0.88rem;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0, 163, 224, 0.25);
+    }
+
+    .btn-route:active {
+      background: var(--deep);
+    }
+
+    .btn-map-pin {
+      flex: 0 0 auto;
+      min-height: 44px;
+      min-width: 96px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 8px 12px;
+      border-radius: 12px;
+      background: rgba(0, 163, 224, 0.10);
+      color: var(--deep);
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 0.84rem;
+      text-decoration: none;
+    }
+
+    .expand-hint {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* 5. 航班頁（登機證樣式） */
+    .section-wrap {
+      padding: 14px 14px 24px;
+    }
+
+    .section-heading {
+      margin: 2px 4px 12px;
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 1.15rem;
+      color: var(--deep);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .boarding-pass {
+      background: #FFFFFF;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-bottom: 16px;
+      border: 1px solid rgba(0, 131, 193, 0.12);
+    }
+
+    .bp-head {
+      background: linear-gradient(135deg, var(--deep), var(--sky));
+      color: #FFFFFF;
+      padding: 11px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-head);
+      font-weight: 700;
+    }
+
+    .bp-airline {
+      font-size: 0.96rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .bp-date {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+    }
+
+    .bp-route {
+      padding: 16px 18px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .bp-port {
+      text-align: center;
+      flex: 1;
+    }
+
+    .bp-code {
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 1.55rem;
+      color: var(--navy);
+      line-height: 1.1;
+      letter-spacing: 0.03em;
+    }
+
+    .bp-city {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .bp-plane-mid {
+      flex: 0 0 92px;
+      text-align: center;
+    }
+
+    .bp-time {
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 0.82rem;
+      color: var(--deep);
+      white-space: nowrap;
+    }
+
+    .bp-line {
+      position: relative;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--sky);
+    }
+
+    .bp-line::before {
+      content: "";
+      position: absolute;
+      left: 4px;
+      right: 4px;
+      height: 1.5px;
+      background: rgba(0, 163, 224, 0.35);
+    }
+
+    .bp-line span {
+      position: relative;
+      background: #FFFFFF;
+      padding: 0 6px;
+      font-size: 0.95rem;
+    }
+
+    .bp-tear {
+      position: relative;
+      border-top: 2px dashed rgba(0, 131, 193, 0.24);
+      margin: 0 12px;
+    }
+
+    .bp-tear::before,
+    .bp-tear::after {
+      content: "";
+      position: absolute;
+      top: -9px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--paper);
+      box-shadow: inset 0 0 0 1px rgba(0, 131, 193, 0.12);
+    }
+
+    .bp-tear::before { left: -20px; }
+    .bp-tear::after  { right: -20px; }
+
+    .bp-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      padding: 12px 14px 14px;
+      background: rgba(0, 163, 224, 0.03);
+      text-align: center;
+    }
+
+    .bp-meta-label {
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    .bp-meta-val {
+      margin-top: 2px;
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 0.8rem;
+      color: var(--navy);
+    }
+
+    .bp-meta-val.is-unassigned {
+      color: var(--muted);
+      background: rgba(31, 53, 80, 0.07);
+      border-radius: 6px;
+      padding: 1px 4px;
+      display: inline-block;
+    }
+
+    /* 6. 住宿頁 */
+    .hotel-card {
+      background: #FFFFFF;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-bottom: 16px;
+      border: 1px solid rgba(31, 53, 80, 0.09);
+    }
+
+    .hotel-media {
+      aspect-ratio: 16 / 9;
+      background: linear-gradient(135deg, var(--navy), #2E4B70);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.2rem;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hotel-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hotel-city-tag {
+      position: absolute;
+      left: 12px;
+      top: 12px;
+      background: rgba(31, 53, 80, 0.85);
+      color: #FFFFFF;
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 0.78rem;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    .hotel-body {
+      padding: 15px 16px 16px;
+    }
+
+    .hotel-name {
+      margin: 0;
+      font-family: var(--font-head);
+      font-weight: 900;
+      font-size: 1.12rem;
+      color: var(--navy);
+    }
+
+    .hotel-addr-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 6px;
+      min-height: 44px;
+      color: var(--deep);
+      font-size: 0.86rem;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      word-break: break-all;
+    }
+
+    .station-list {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin: 8px 0 14px;
+    }
+
+    .station-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 11px;
+      border-radius: 12px;
+      background: rgba(31, 53, 80, 0.04);
+      font-size: 0.84rem;
+    }
+
+    .line-dot {
+      flex: 0 0 11px;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+    }
+
+    .station-name {
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .station-line-name {
+      font-size: 0.76rem;
+      color: var(--muted);
+    }
+
+    .station-walk {
+      margin-left: auto;
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 0.8rem;
+      color: var(--deep);
+    }
+
+    /* 7. 固定底部導覽列 */
+    .bottom-nav {
+      position: fixed;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 480px;
+      background: var(--navy);
+      padding: 6px 12px calc(6px + env(safe-area-inset-bottom, 0px));
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      z-index: 40;
+      box-shadow: 0 -4px 18px rgba(31, 53, 80, 0.18);
+    }
+
+    .nav-tab {
+      min-height: 50px;
+      border: none;
+      background: transparent;
+      color: rgba(255, 253, 247, 0.68);
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 0.86rem;
+      border-radius: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      cursor: pointer;
+      transition: background-color 160ms ease, color 160ms ease;
+    }
+
+    .nav-tab .nav-ico {
+      font-size: 1.15rem;
+      line-height: 1.1;
+    }
+
+    .nav-tab.is-active {
+      background: rgba(0, 163, 224, 0.22);
+      color: #FFFFFF;
+    }
+
+    .nav-tab.is-active .nav-label {
+      color: var(--yellow);
+    }
+
+    /* Reduced Motion 無動畫模式 */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .skyline-svg {
+        transform: none !important;
+      }
+      .tl-item.will-animate {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+
+    html.force-reduced-motion *,
+    html.force-reduced-motion *::before,
+    html.force-reduced-motion *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="washi-overlay" aria-hidden="true"></div>
+
+  <div class="app-shell">
+    <!-- 1. 頁首 -->
+    <header class="hero-header">
+      <div class="hero-top">
+        <div>
+          <h1 class="hero-title">日本行 🇯🇵</h1>
+          <div class="hero-dates">2026.11.26 – 12.04</div>
+        </div>
+        <div id="countdownBadge" class="countdown-pill" aria-live="polite">準備出發</div>
+      </div>
+
+      <div class="skyline-stage" aria-hidden="true">
+        <!-- 大阪段天際線（通天閣 + 大阪城剪影 + 梅田藍天大廈） -->
+        <svg id="skylineOsaka" class="skyline-svg is-active" viewBox="0 0 440 72" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet">
+          <path d="M0 72V56H28V44H52V56H74V36L88 28L102 36V56H126V48H152V72H0Z" fill="rgba(255,255,255,0.16)"/>
+          <!-- 通天閣 Tsutenkaku -->
+          <path d="M182 72L190 48H195L198 24H194V18H202V8H206V2H208V8H212V18H220V24H216L219 48H224L232 72H221L216 56H198L193 72H182ZM201 24L199 44H215L213 24H201Z" fill="rgba(255,255,255,0.86)"/>
+          <!-- 摩天輪與梅田雙塔剪影 -->
+          <circle cx="272" cy="44" r="16" stroke="rgba(255,255,255,0.45)" stroke-width="2.2"/>
+          <path d="M264 72L272 44L280 72" stroke="rgba(255,255,255,0.45)" stroke-width="2.2"/>
+          <path d="M312 72V26H326V34H342V26H356V72H344V42H324V72H312Z" fill="rgba(255,255,255,0.26)"/>
+          <path d="M372 72V42L388 33L404 42V72H372ZM366 43L388 30L410 43" stroke="rgba(255,255,255,0.32)" stroke-width="2" fill="rgba(255,255,255,0.18)"/>
+          <rect x="418" y="50" width="22" height="22" fill="rgba(255,255,255,0.16)"/>
+        </svg>
+
+        <!-- 札幌段天際線（札幌電視塔 + 時計台 + 藻岩山與雪花） -->
+        <svg id="skylineSapporo" class="skyline-svg" viewBox="0 0 440 72" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet">
+          <path d="M0 72L48 42L92 60L142 36L190 64V72H0Z" fill="rgba(255,255,255,0.15)"/>
+          <!-- 札幌電視塔 Sapporo TV Tower -->
+          <path d="M206 72L216 45H219L223 24H219V17H225L227 3H229L231 17H237V24H233L237 45H240L250 72H241L235 55H221L215 72H206ZM225 24L222 42H234L231 24H225Z" fill="rgba(255,255,255,0.88)"/>
+          <rect x="221" y="18" width="14" height="5" rx="1" fill="#FFB400"/>
+          <!-- 時計台與針葉樹 -->
+          <path d="M276 72V48L294 37L312 48V72H276ZM289 37V28L294 23L299 28V37" fill="rgba(255,255,255,0.28)"/>
+          <path d="M338 72V62H330L341 46H334L343 33L352 46H345L356 62H348V72H338Z" fill="rgba(255,255,255,0.34)"/>
+          <path d="M372 72V50H398V38H424V72H372Z" fill="rgba(255,255,255,0.18)"/>
+          <!-- 點綴雪花 -->
+          <circle cx="66" cy="18" r="2" fill="rgba(255,255,255,0.65)"/>
+          <circle cx="136" cy="12" r="2.4" fill="rgba(255,255,255,0.55)"/>
+          <circle cx="178" cy="24" r="1.8" fill="rgba(255,255,255,0.65)"/>
+          <circle cx="272" cy="15" r="2.2" fill="rgba(255,255,255,0.6)"/>
+          <circle cx="364" cy="19" r="2" fill="rgba(255,255,255,0.55)"/>
+          <circle cx="412" cy="14" r="2.4" fill="rgba(255,255,255,0.65)"/>
+        </svg>
+      </div>
+    </header>
+
+    <!-- 分頁 1：🗓 行程 -->
+    <main id="panelItinerary" class="view-panel">
+      <nav class="date-strip-wrap" aria-label="行程日期選擇">
+        <div id="dateStrip" class="date-strip"></div>
+      </nav>
+
+      <section id="dayBanner" class="day-banner" aria-live="polite"></section>
+
+      <section id="timelineList" class="timeline-list" aria-label="當日行程時間軸"></section>
+    </main>
+
+    <!-- 分頁 2：✈️ 航班 -->
+    <section id="panelFlights" class="view-panel section-wrap" hidden>
+      <h2 class="section-heading">✈️ 登機證與行李額度</h2>
+      <div id="flightsList"></div>
+    </section>
+
+    <!-- 分頁 3：🏨 住宿 -->
+    <section id="panelHotels" class="view-panel section-wrap" hidden>
+      <h2 class="section-heading">🏨 住宿資訊與路線</h2>
+      <div id="hotelsList"></div>
+    </section>
+
+    <!-- 5. 底部導覽列 -->
+    <nav class="bottom-nav" aria-label="主導覽列">
+      <button type="button" class="nav-tab is-active" data-tab="itinerary">
+        <span class="nav-ico" aria-hidden="true">🗓</span>
+        <span class="nav-label">行程</span>
+      </button>
+      <button type="button" class="nav-tab" data-tab="flights">
+        <span class="nav-ico" aria-hidden="true">✈️</span>
+        <span class="nav-label">航班</span>
+      </button>
+      <button type="button" class="nav-tab" data-tab="hotels">
+        <span class="nav-ico" aria-hidden="true">🏨</span>
+        <span class="nav-label">住宿</span>
+      </button>
+    </nav>
+  </div>
+
+  <script>
+    const TRIP = {
+      title: "日本行",
+      start: "2026-11-26",
+      end: "2026-12-04",
+      flights: [
+        { airline: "樂桃 Peach", from: "桃園 TPE", to: "大阪 KIX", date: "11/26", time: "18:50–22:20", carry: "2件 7kg", checked: "1件 20kg", meal: "無", seat: "" },
+        { airline: "日航 JAL", from: "大阪 KIX", to: "札幌 CTS", date: "11/29", time: "15:30–17:20", carry: "2件 10kg", checked: "1件 20kg", meal: "無", seat: "" },
+        { airline: "酷航 Scoot", from: "札幌 CTS", to: "桃園 TPE", date: "12/04", time: "18:40–22:20", carry: "2件 10kg", checked: "1件 25kg", meal: "無", seat: "" }
+      ],
+      hotels: [
+        { city: "大阪", name: "Airbnb", address: "天下茶屋站附近", stations: [{ name: "天下茶屋站", walk: "走路7分鐘", line: "堺筋線", color: "#8B5A2B" }], map: "天下茶屋駅" },
+        { city: "北海道", name: "Randor Hotel Sapporo Prestige", address: "札幌市中央区南6条西5-1-2", stations: [
+            { name: "薄野站", walk: "走路7分鐘", line: "南北線", color: "#2E8B57" },
+            { name: "豐水薄野站", walk: "走路8分鐘", line: "東豐線", color: "#1E73BE" }
+          ], map: "Randor Hotel Sapporo Prestige", img: "images/randor-hotel-sapporo.jpg" }
+      ],
+      days: [
+        {
+          date: "2026-11-26", city: "大阪", leave: "16:50 抵達桃園機場", mood: "出發囉！夜裡降落大阪",
+          items: [
+            { time: "16:50", type: "flight", title: "抵達桃園機場", note: "樂桃 18:50 起飛 → 22:20 抵達關西" },
+            { time: "23:00", type: "transport", emoji: "🚃", title: "南海電鐵 空港急行 → 天下茶屋", from: "關西機場", to: "天下茶屋", note: "班次：23:00（特急）/ 23:06 / 23:20 / 23:55", details: ["現場購票，全車自由座"] },
+            { time: "", type: "hotel", title: "Airbnb 入住", note: "天下茶屋站走路7分", map: "天下茶屋駅" },
+            { time: "", type: "food", emoji: "🍜", title: "麥風拉麵", note: "宵夜（應該已經關了）", details: ["Taxi 20分 / 地鐵＋走路 20分"], map: "麦風 ラーメン 大阪", img: "images/bakufu-ramen.jpg" }
+          ]
+        },
+        {
+          date: "2026-11-27", city: "大阪", leave: "約 12–13 點，全員到齊出門", mood: "梅田 × 心齋橋 吃吃逛逛",
+          items: [
+            { time: "12:30", type: "food", emoji: "🍜", title: "麺スタイル谷本家 大阪梅田店", note: "11:00–15:00, 17:00–03:00", details: ["地鐵＋走路 40分"], map: "麺スタイル谷本家 大阪梅田店", img: "images/men-style-tanimotoya.jpg" },
+            { time: "", type: "shop", title: "梅田", note: "逛街", map: "梅田 大阪", img: "images/umeda.jpg" },
+            { time: "", type: "food", emoji: "🍕", title: "Henry's PIZZA", note: "11:30–21:30", details: ["地鐵＋走路 30分"], map: "Henry's PIZZA 大阪", img: "images/henrys-pizza.jpg" },
+            { time: "", type: "shop", title: "心齋橋逛逛 ROFJ", note: "逛街", map: "心斎橋 大阪", img: "images/shinsaibashi.jpg" },
+            { time: "20:00", type: "food", emoji: "🍲", title: "Shabucho", note: "11:30–13:30, 17:30–22:00", alert: ["訂位 20:00", "只收現金"], details: ["地鐵＋走路 20分"], map: "Shabucho 大阪", img: "images/shabucho.jpg" },
+            { time: "", type: "food", emoji: "🌽", title: "BATTEN YOKATO AMERIKAMURA", note: "16:00–01:00", details: ["如果還餓再吃"], map: "BATTEN YOKATO AMERIKAMURA", img: "images/batten-yokato.jpg" }
+          ]
+        },
+        {
+          date: "2026-11-28", city: "大阪", leave: "10:50 出門", mood: "奈良小鹿一日遊 🦌",
+          items: [
+            { time: "11:50", type: "transport", emoji: "🚃", title: "近鐵奈良線 → 奈良", from: "大阪難波", to: "近鐵奈良", note: "電子車票 11:50", details: ["先買東西上車吃", "到大阪難波站搭，走路＋地鐵 20分"] },
+            { time: "", type: "sight", emoji: "🦌", title: "奈良公園", note: "興福寺 ➜ 春日大社 ➜ 東大寺", map: "奈良公園", img: "images/nara-park.jpg" },
+            { time: "", type: "shop", title: "東向商店街", note: "🍮 大佛布丁、🍣 柿の葉すし、中谷堂搗麻糬", details: ["走路 10分"], map: "東向商店街 奈良", img: "images/higashimuki-street.jpg" },
+            { time: "16:53", type: "transport", emoji: "🚃", title: "近鐵奈良線 → 回市區", from: "近鐵奈良", to: "大阪難波", note: "電子車票 16:53" },
+            { time: "18:30", type: "food", emoji: "🥩", title: "焼肉くるみ 心斎橋本店", note: "11:30–01:00", alert: ["訂位 18:30"], map: "焼肉くるみ 心斎橋本店", img: "images/yakiniku-kurumi.jpg" }
+          ]
+        },
+        {
+          date: "2026-11-29", city: "大阪 → 札幌", leave: "10:00 退房出門", mood: "飛往雪國 ❄️",
+          items: [
+            { time: "11:09", type: "transport", emoji: "🚅", title: "南海 特急 Rapi:t α → 關西機場", from: "天下茶屋 11:09", to: "關西機場 11:43", note: "10:00 退房" },
+            { time: "15:30", type: "flight", title: "日航 → 北海道新千歲機場", note: "15:30 起飛 → 17:20 抵達" },
+            { time: "18:54", type: "transport", emoji: "🚃", title: "機場 JR → 札幌", from: "新千歲機場 18:54", to: "札幌 19:33", note: "" },
+            { time: "", type: "hotel", title: "Randor Hotel Sapporo Prestige", note: "Check in 放行李", details: ["JR＋地鐵＋走路 約1小時"], map: "Randor Hotel Sapporo Prestige", img: "images/randor-hotel-sapporo.jpg" },
+            { time: "", type: "food", emoji: "🦐", title: "蝦味拉麵 一幻 總本店", note: "11:00–03:00", details: ["走路 10分 / Taxi 5分"], map: "えびそば一幻 総本店", img: "images/ebisoba-ichigen.jpg" }
+          ]
+        },
+        {
+          date: "2026-11-30", city: "小樽", leave: "出門", mood: "小樽運河與音樂盒",
+          items: [
+            { time: "10:30", type: "transport", emoji: "🚃", title: "JR → 小樽", from: "札幌 10:30", to: "小樽 11:05", note: "先搭地鐵到札幌站轉 JR", details: ["走路＋地鐵＋JR＋走路 共 1小時30分"] },
+            { time: "", type: "sight", emoji: "🐟", title: "三角市場", note: "小樽站旁", map: "小樽 三角市場", img: "images/otaru-sankaku-market.jpg" },
+            { time: "", type: "food", emoji: "🦀", title: "滝波食堂", note: "07:00–17:00", alert: ["可能排隊 1 小時"], planB: "武田鮮魚店", map: "滝波食堂 小樽", img: "images/takinami-shokudo.jpg" },
+            { time: "", type: "shop", title: "堺町通商店街", note: "Snoopy茶屋、Miffy點心堂、小樽音樂盒堂", alert: ["商店約 17:00–18:00 關門"], details: ["伴手禮：LeTAO、六花亭、北菓樓", "Taxi 8分 / Bus 20分 / 走路 25分"], map: "堺町通り 小樽", img: "images/sakaimachi-street.jpg" },
+            { time: "", type: "sight", emoji: "🌉", title: "小樽運河", note: "傍晚點燈", map: "小樽運河", img: "images/otaru-canal.jpg" },
+            { time: "18:00", type: "transport", emoji: "🚃", title: "JR → 回札幌", from: "小樽 18:00", to: "札幌 18:35", note: "" },
+            { time: "", type: "food", emoji: "🍣", title: "Toriton 圓山店", note: "11:00–22:00", details: ["地鐵＋走路 30分 / Taxi 10分"], map: "トリトン 円山店", img: "images/toriton-maruyama.jpg" }
+          ]
+        },
+        {
+          date: "2026-12-01", city: "登別", leave: "出門", mood: "地獄谷 × 溫泉 ♨️",
+          items: [
+            { time: "09:45", type: "transport", emoji: "🚃", title: "JR → 登別", from: "札幌 09:45", to: "登別 10:59", note: "先搭地鐵到札幌站轉 JR", details: ["買東西上車吃", "走路＋地鐵＋JR 共 1小時45分"] },
+            { time: "", type: "shop", title: "極樂通商店街", note: "公車＋走路 30分 / Taxi 15分", map: "極楽通り商店街 登別", img: "images/gokuraku-street.jpg" },
+            { time: "", type: "food", emoji: "🐟", title: "溫泉市場", note: "11:30–20:00", map: "登別 温泉市場", img: "images/noboribetsu-onsen-ichiba.jpg" },
+            { time: "", type: "food", emoji: "🍮", title: "道産子ぷりん", note: "10:00–19:00", map: "道産子ぷりん 登別", img: "images/dosanko-pudding.jpg" },
+            { time: "", type: "shop", emoji: "🐝", title: "杉養蜂園", note: "09:45–18:00", map: "杉養蜂園 登別", img: "images/sugi-bee-garden.jpg" },
+            { time: "", type: "sight", emoji: "🌋", title: "登別地獄谷", note: "走路 11分", map: "登別地獄谷", img: "images/noboribetsu-jigokudani.jpg" },
+            { time: "", type: "onsen", title: "第一瀧本館", note: "09:00–21:00", alert: ["最後入場 18:00"], details: ["走路 6分"], map: "第一滝本館", img: "images/dai-ichi-takimotokan.jpg" },
+            { time: "18:40", type: "transport", emoji: "🚃", title: "JR → 回札幌", from: "登別 18:40", to: "札幌 19:58", note: "" },
+            { time: "20:30", type: "food", emoji: "🍶", title: "產地直達居酒屋 愛與 札幌站北三條店", note: "", alert: ["訂位 20:30"], map: "愛と 札幌駅北三条店", img: "images/aito-izakaya.jpg" }
+          ]
+        },
+        {
+          date: "2026-12-02", city: "旭川", leave: "08:00 司機到飯店接", mood: "包車一日遊",
+          items: [
+            { time: "08:00", type: "transport", emoji: "🚐", title: "旭川一日遊", note: "司機 8:00 到飯店接" },
+            { time: "", type: "food", emoji: "🎁", title: "晚餐：到附近開盲盒", note: "到了再決定" }
+          ]
+        },
+        {
+          date: "2026-12-03", city: "札幌", leave: "11:00 出門", mood: "市場、神宮、聖誕市集 🎄",
+          items: [
+            { time: "11:00", type: "food", emoji: "🦀", title: "二條市場", note: "午餐到現場看", details: ["丼兵衛 二條市場店", "海膽專門店 世壱屋 札幌南二條店", "Kanikousen Nijo Market Store", "Taxi 6分 / 走路 20分"], map: "二条市場 札幌", img: "images/nijo-market.jpg" },
+            { time: "", type: "sight", emoji: "⛩️", title: "北海道神宮", note: "神宮茶屋：北海道牛乳霜淇淋、現烤福餅", details: ["地鐵＋走路 35分"], map: "北海道神宮", img: "images/hokkaido-jingu.jpg" },
+            { time: "", type: "shop", title: "狸小路", note: "🍮 ESPRESSO D WORKS ココノススキノ、BicCamera Select 札幌狸小路店", details: ["Taxi 20分 / 地鐵＋走路 30分"], map: "狸小路 札幌", img: "images/tanukikoji.jpg" },
+            { time: "17:45", type: "food", emoji: "🐑", title: "成吉思汗 羊八 札幌本店", note: "16:00–23:00", alert: ["訂位 17:45"], details: ["走路 10分"], map: "ジンギスカン 羊八 札幌本店", img: "images/jingisukan-hitsujihachi.jpg" },
+            { time: "", type: "sight", emoji: "🎄", title: "札幌慕尼黑聖誕節集市", note: "大通公園 西1丁目及西2丁目", alert: ["21:00 結束"], map: "大通公園 西2丁目", img: "images/sapporo-christmas-market.jpg" }
+          ]
+        },
+        {
+          date: "2026-12-04", city: "札幌 → 桃園", leave: "10:00 退房", mood: "最後一碗拉麵，回家囉",
+          items: [
+            { time: "", type: "food", emoji: "🍜", title: "一蘭拉麵", note: "", map: "一蘭 札幌", img: "images/ichiran-sapporo.jpg" },
+            { time: "14:00", type: "transport", emoji: "🚃", title: "JR → 新千歲機場", from: "札幌 14:00", to: "機場 14:37", note: "" },
+            { time: "18:40", type: "flight", title: "酷航 → 桃園", note: "18:40 起飛 → 22:20 抵達" }
+          ]
+        }
+      ]
+    };
+
+    const DEFAULT_EMOJI = {
+      transport: "🚃",
+      flight: "✈️",
+      food: "🍜",
+      shop: "🛍️",
+      sight: "⛩️",
+      hotel: "🏨",
+      onsen: "♨️"
+    };
+
+    const JP_DOW = ["日", "月", "火", "水", "木", "金", "土"];
+    const STORAGE_KEY = "jp_trip_2026_done_v1";
+
+    const params = new URLSearchParams(location.search);
+    const reduceMQ = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)");
+    function isReducedMotion() {
+      return params.get("reduce") === "1" || Boolean(reduceMQ && reduceMQ.matches);
+    }
+    if (params.get("reduce") === "1") {
+      document.documentElement.classList.add("force-reduced-motion");
+    }
+    if (reduceMQ && reduceMQ.addEventListener) {
+      reduceMQ.addEventListener("change", () => renderTimeline(false));
+    }
+
+    function getNow() {
+      const mock = params.get("now");
+      if (mock) {
+        const parsed = new Date(mock.includes("T") ? mock : mock + "T13:30:00");
+        if (!isNaN(parsed)) return parsed;
+      }
+      return new Date();
+    }
+
+    function formatYMD(d) {
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, "0");
+      const day = String(d.getDate()).padStart(2, "0");
+      return `${y}-${m}-${day}`;
+    }
+
+    function parseLocalDate(ymd) {
+      const [y, m, d] = ymd.split("-").map(Number);
+      return new Date(y, m - 1, d);
+    }
+
+    function esc(str) {
+      return String(str || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    // Google Maps 連結：從目前位置出發的路線導航 vs 查看地標
+    function mapsRouteUrl(dest) {
+      return "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(dest);
+    }
+    function mapsSearchUrl(query) {
+      return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(query);
+    }
+
+    function loadDoneState() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+      } catch (_) {
+        return {};
+      }
+    }
+
+    function saveDoneState(state) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (_) {}
+    }
+
+    let doneState = loadDoneState();
+    let currentDayIdx = 0;
+    let todayDayIdx = -1;
+    let nowItemIdx = -1;
+    let ioObserver = null;
+
+    // 計算與「現在時間」最接近的那張卡片索引
+    function computeClosestItemIndex(items, now) {
+      if (!items || !items.length) return -1;
+      const nowMin = now.getHours() * 60 + now.getMinutes();
+      const mins = items.map(it => {
+        if (!it.time) return null;
+        const [h, m] = it.time.split(":").map(Number);
+        return isNaN(h) ? null : h * 60 + (m || 0);
+      });
+
+      const known = [];
+      mins.forEach((v, i) => { if (v !== null) known.push([i, v]); });
+      if (!known.length) return 0;
+
+      // 為無確切時間的項目推算合理區間，僅供判定 NOW，不顯示於畫面
+      for (let k = 0; k < known.length - 1; k++) {
+        const [i1, t1] = known[k];
+        const [i2, t2] = known[k + 1];
+        const span = i2 - i1;
+        for (let j = i1 + 1; j < i2; j++) {
+          mins[j] = t1 + ((t2 - t1) * (j - i1)) / span;
+        }
+      }
+      const [firstIdx, firstT] = known[0];
+      for (let j = firstIdx - 1; j >= 0; j--) {
+        mins[j] = Math.max(0, firstT - (firstIdx - j) * 50);
+      }
+      const [lastIdx, lastT] = known[known.length - 1];
+      for (let j = lastIdx + 1; j < mins.length; j++) {
+        mins[j] = Math.min(1439, lastT + (j - lastIdx) * 60);
+      }
+
+      let bestIdx = 0;
+      let bestDiff = Infinity;
+      mins.forEach((m, idx) => {
+        const diff = Math.abs(m - nowMin);
+        if (diff < bestDiff) {
+          bestDiff = diff;
+          bestIdx = idx;
+        }
+      });
+      return bestIdx;
+    }
+
+    function updateHeaderAndToday() {
+      const now = getNow();
+      const todayYMD = formatYMD(now);
+      const todayMidnight = parseLocalDate(todayYMD);
+      const startMidnight = parseLocalDate(TRIP.start);
+      const endMidnight = parseLocalDate(TRIP.end);
+      const badge = document.getElementById("countdownBadge");
+
+      todayDayIdx = TRIP.days.findIndex(d => d.date === todayYMD);
+
+      if (todayMidnight < startMidnight) {
+        const diffDays = Math.round((startMidnight - todayMidnight) / 86400000);
+        badge.textContent = `還有 ${diffDays} 天出發`;
+        badge.classList.remove("is-live");
+        nowItemIdx = -1;
+      } else if (todayMidnight <= endMidnight && todayDayIdx !== -1) {
+        const dayObj = TRIP.days[todayDayIdx];
+        badge.textContent = `Day ${todayDayIdx + 1} / ${TRIP.days.length} · ${dayObj.city}`;
+        badge.classList.add("is-live");
+        nowItemIdx = computeClosestItemIndex(dayObj.items, now);
+      } else {
+        badge.textContent = "おかえり！";
+        badge.classList.remove("is-live");
+        nowItemIdx = -1;
+      }
+    }
+
+    function updateSkyline(dayIdx) {
+      const isHokkaido = dayIdx >= 4;
+      document.getElementById("skylineOsaka").classList.toggle("is-active", !isHokkaido);
+      document.getElementById("skylineSapporo").classList.toggle("is-active", isHokkaido);
+    }
+
+    function renderDateStrip() {
+      const strip = document.getElementById("dateStrip");
+      let html = "";
+      TRIP.days.forEach((d, idx) => {
+        if (idx === 4) {
+          html += `<div class="date-divider" aria-hidden="true"><span>✈️</span></div>`;
+        }
+        const dt = parseLocalDate(d.date);
+        const dayNum = dt.getDate();
+        const dow = JP_DOW[dt.getDay()];
+        const activeClass = idx === currentDayIdx ? "is-active" : "";
+        html += `
+          <button type="button" class="date-stamp-btn ${activeClass}" data-day="${idx}" aria-label="${d.date} (${dow}) ${d.city}" aria-pressed="${idx === currentDayIdx}">
+            <span class="stamp-day">${dayNum}</span>
+            <span class="stamp-dow">${dow}</span>
+          </button>`;
+      });
+      strip.innerHTML = html;
+
+      strip.querySelectorAll(".date-stamp-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          selectDay(Number(btn.dataset.day), false);
+        });
+      });
+    }
+
+    function scrollActiveStampIntoView() {
+      const strip = document.getElementById("dateStrip");
+      const active = strip.querySelector(".date-stamp-btn.is-active");
+      if (!active) return;
+      const targetLeft = active.offsetLeft - strip.clientWidth / 2 + active.offsetWidth / 2;
+      strip.scrollTo({
+        left: Math.max(0, targetLeft),
+        behavior: isReducedMotion() ? "auto" : "smooth"
+      });
+    }
+
+    function renderDayBanner() {
+      const d = TRIP.days[currentDayIdx];
+      document.getElementById("dayBanner").innerHTML = `
+        <div class="day-banner-top">
+          <div class="day-city-badge">📍 ${esc(d.city)}</div>
+          <div class="day-leave-pill">🕒 ${esc(d.leave)}</div>
+        </div>
+        <div class="day-mood">${esc(d.mood)}</div>
+      `;
+    }
+
+    function detectTicketKind(item) {
+      const joined = (item.note || "") + " " + ((item.details || []).join(" "));
+      if (joined.includes("電子車票") || joined.includes("電子票")) return "電子車票";
+      if (joined.includes("現場購票")) return "現場購票";
+      return "";
+    }
+
+    function cleanStationQuery(fromStr) {
+      const base = String(fromStr || "").replace(/\s*\d{1,2}:\d{2}\s*/g, "").trim();
+      if (!base) return "";
+      if (base.endsWith("機場") || base.endsWith("站") || base.endsWith("駅")) return base;
+      return base + "駅";
+    }
+
+    function renderTimeline(scrollToNow) {
+      const container = document.getElementById("timelineList");
+      const day = TRIP.days[currentDayIdx];
+      const reduced = isReducedMotion();
+
+      if (ioObserver) {
+        ioObserver.disconnect();
+        ioObserver = null;
+      }
+
+      const cardsHtml = day.items.map((item, idx) => {
+        const key = `${day.date}_${idx}`;
+        const isDone = Boolean(doneState[key]);
+        const isNow = currentDayIdx === todayDayIdx && idx === nowItemIdx;
+        const emoji = item.emoji || DEFAULT_EMOJI[item.type] || "📌";
+        const isTicket = item.type === "transport" && item.from && item.to;
+        const hasMediaBlock = Boolean(item.img || item.map);
+
+        const alertsHtml = (item.alert || [])
+          .map(a => `<span class="alert-chip">${esc(a)}</span>`)
+          .join("");
+        const nowHtml = isNow ? `<span class="now-chip">NOW</span>` : "";
+        const timeHtml = item.time ? `<span class="time-chip">${esc(item.time)}</span>` : "";
+
+        // 展開區頂端 16:9 照片（若無照片則用分類色塊加大 emoji）
+        let heroMediaHtml = "";
+        if (hasMediaBlock) {
+          if (item.img) {
+            heroMediaHtml = `
+              <div class="card-hero-media">
+                <img src="${esc(item.img)}" alt="${esc(item.title)}" loading="lazy"
+                     onerror="this.remove(); this.parentElement && (this.parentElement.textContent='${emoji}')">
+              </div>`;
+          } else {
+            heroMediaHtml = `<div class="card-hero-media" aria-hidden="true">${emoji}</div>`;
+          }
+        }
+
+        // 收合時右側 56px 縮圖
+        let thumbHtml = "";
+        if (hasMediaBlock) {
+          if (item.img) {
+            thumbHtml = `
+              <div class="card-thumb">
+                <img src="${esc(item.img)}" alt="" loading="lazy"
+                     onerror="this.remove(); this.parentElement && (this.parentElement.textContent='${emoji}')">
+              </div>`;
+          } else {
+            thumbHtml = `<div class="card-thumb" aria-hidden="true">${emoji}</div>`;
+          }
+        }
+
+        // 展開內容（完整備註、details、Plan B、路線與地圖按鈕）
+        const detailsHtml = (item.details && item.details.length)
+          ? `<ul class="detail-list">${item.details.map(li => `<li>${esc(li)}</li>`).join("")}</ul>`
+          : "";
+
+        const planBHtml = item.planB
+          ? `<div class="planb-box">
+               <div><span class="planb-label">Plan B</span>${esc(item.planB)}</div>
+               <a class="planb-route-link" href="${mapsRouteUrl(item.planB + " " + day.city)}" target="_blank" rel="noopener">🧭 怎麼走</a>
+             </div>`
+          : "";
+
+        let mapActionsHtml = "";
+        if (item.map) {
+          mapActionsHtml = `
+            <div class="map-actions">
+              <a class="btn-route" href="${mapsRouteUrl(item.map)}" target="_blank" rel="noopener">🧭 從這怎麼走</a>
+              <a class="btn-map-pin" href="${mapsSearchUrl(item.map)}" target="_blank" rel="noopener">📍 開地圖</a>
+            </div>`;
+        } else if (isTicket) {
+          const stQuery = cleanStationQuery(item.from);
+          if (stQuery) {
+            mapActionsHtml = `
+              <div class="map-actions">
+                <a class="btn-route" href="${mapsRouteUrl(stQuery)}" target="_blank" rel="noopener">🧭 到出發站怎麼走</a>
+                <a class="btn-map-pin" href="${mapsSearchUrl(stQuery)}" target="_blank" rel="noopener">📍 開地圖</a>
+              </div>`;
+          }
+        }
+
+        const hasExpandable = Boolean(heroMediaHtml || detailsHtml || planBHtml || mapActionsHtml || item.note);
+
+        let summaryInner = "";
+        if (isTicket) {
+          const ticketKind = detectTicketKind(item);
+          summaryInner = `
+            <div class="ticket-layout" data-toggle="card">
+              <div class="ticket-stub">
+                <span class="ticket-stub-emoji" aria-hidden="true">${emoji}</span>
+                ${item.time ? `<span class="ticket-stub-time">${esc(item.time)}</span>` : ""}
+              </div>
+              <div class="ticket-body">
+                ${(nowHtml || alertsHtml || ticketKind) ? `
+                  <div class="card-meta-row">
+                    ${nowHtml}
+                    ${ticketKind ? `<span class="ticket-type-tag">${esc(ticketKind)}</span>` : ""}
+                    ${alertsHtml}
+                  </div>` : ""}
+                <div class="ticket-route">
+                  <span>${esc(item.from)}</span>
+                  <span class="ticket-arrow" aria-hidden="true">➜</span>
+                  <span>${esc(item.to)}</span>
+                </div>
+                <div class="ticket-subrow">
+                  <span>${esc(item.title)}</span>
+                  ${item.note ? `<span>· ${esc(item.note)}</span>` : ""}
+                </div>
+              </div>
+            </div>`;
+        } else {
+          const briefText = item.note || (item.map ? "點開看路線與詳情" : "");
+          summaryInner = `
+            <div class="card-summary" data-toggle="card">
+              <div class="card-main">
+                ${(timeHtml || nowHtml || alertsHtml) ? `
+                  <div class="card-meta-row">
+                    ${timeHtml}${nowHtml}${alertsHtml}
+                  </div>` : ""}
+                <div class="card-title-row">
+                  <span class="card-emoji" aria-hidden="true">${emoji}</span>
+                  <h3 class="card-title">${esc(item.title)}</h3>
+                </div>
+                ${briefText ? `<p class="card-brief">${esc(briefText)}</p>` : ""}
+              </div>
+              ${thumbHtml}
+            </div>`;
+        }
+
+        const expandBlock = hasExpandable ? `
+          <div class="card-expand">
+            ${detailsHtml}
+            ${planBHtml}
+            ${mapActionsHtml}
+          </div>` : "";
+
+        const animClass = reduced ? "" : "will-animate";
+        const itemClasses = [
+          "tl-item",
+          animClass,
+          item.time ? "" : "has-no-time",
+          isNow ? "is-now" : "",
+          isDone ? "is-done" : ""
+        ].filter(Boolean).join(" ");
+
+        return `
+          <article class="${itemClasses}" data-key="${esc(key)}" data-idx="${idx}">
+            <span class="tl-dot" aria-hidden="true"></span>
+            <div class="place-card ${isTicket ? "is-ticket" : ""}" data-type="${esc(item.type)}">
+              ${heroMediaHtml}
+              <div class="card-head-wrap">
+                <span class="sumi-stamp" aria-hidden="true">済</span>
+                <button type="button" class="done-btn" aria-label="標記完成：${esc(item.title)}" aria-pressed="${isDone}">
+                  <span class="done-circle">✓</span>
+                </button>
+                ${summaryInner}
+              </div>
+              ${expandBlock}
+            </div>
+          </article>`;
+      }).join("");
+
+      container.innerHTML = cardsHtml;
+
+      // 綁定卡片展開與完成勾選
+      container.querySelectorAll(".tl-item").forEach(article => {
+        const card = article.querySelector(".place-card");
+        const toggleArea = article.querySelector('[data-toggle="card"]');
+        const doneBtn = article.querySelector(".done-btn");
+        const key = article.dataset.key;
+
+        if (toggleArea) {
+          toggleArea.addEventListener("click", () => {
+            card.classList.toggle("is-open");
+          });
+        }
+
+        // 點擊展開後的頂端大圖也可收合
+        const hero = article.querySelector(".card-hero-media");
+        if (hero) {
+          hero.style.cursor = "pointer";
+          hero.addEventListener("click", () => card.classList.toggle("is-open"));
+        }
+
+        doneBtn.addEventListener("click", e => {
+          e.stopPropagation();
+          const next = !doneState[key];
+          if (next) doneState[key] = true;
+          else delete doneState[key];
+          saveDoneState(doneState);
+          article.classList.toggle("is-done", next);
+          doneBtn.setAttribute("aria-pressed", String(next));
+        });
+      });
+
+      // 卡片捲進畫面浮現 (40ms 依序出現)
+      if (!reduced && "IntersectionObserver" in window) {
+        let batchCounter = 0;
+        let resetTimer = null;
+        ioObserver = new IntersectionObserver((entries, obs) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const el = entry.target;
+              el.style.transitionDelay = `${Math.min(batchCounter, 8) * 40}ms`;
+              batchCounter++;
+              el.classList.add("is-visible");
+              obs.unobserve(el);
+              clearTimeout(resetTimer);
+              resetTimer = setTimeout(() => { batchCounter = 0; }, 120);
+            }
+          });
+        }, { threshold: 0.08 });
+
+        container.querySelectorAll(".tl-item.will-animate").forEach(el => ioObserver.observe(el));
+      }
+
+      if (scrollToNow && currentDayIdx === todayDayIdx && nowItemIdx >= 0) {
+        requestAnimationFrame(() => {
+          const nowEl = container.querySelector(`.tl-item[data-idx="${nowItemIdx}"]`);
+          if (nowEl) {
+            nowEl.scrollIntoView({
+              behavior: reduced ? "auto" : "smooth",
+              block: "center"
+            });
+          }
+        });
+      }
+    }
+
+    function selectDay(idx, scrollToNow) {
+      if (idx < 0 || idx >= TRIP.days.length) return;
+      currentDayIdx = idx;
+      updateSkyline(idx);
+      const strip = document.getElementById("dateStrip");
+      strip.querySelectorAll(".date-stamp-btn").forEach((btn, i) => {
+        const active = i === idx;
+        btn.classList.toggle("is-active", active);
+        btn.setAttribute("aria-pressed", String(active));
+      });
+      scrollActiveStampIntoView();
+      renderDayBanner();
+      renderTimeline(scrollToNow);
+    }
+
+    function splitPort(portStr) {
+      const parts = String(portStr || "").trim().split(/\s+/);
+      if (parts.length >= 2) {
+        return { city: parts[0], code: parts[1] };
+      }
+      return { city: portStr, code: portStr };
+    }
+
+    function renderFlights() {
+      const wrap = document.getElementById("flightsList");
+      wrap.innerHTML = TRIP.flights.map(f => {
+        const dep = splitPort(f.from);
+        const arr = splitPort(f.to);
+        const seatHtml = f.seat
+          ? `<div class="bp-meta-val">${esc(f.seat)}</div>`
+          : `<div class="bp-meta-val is-unassigned">未選位</div>`;
+
+        return `
+          <article class="boarding-pass">
+            <div class="bp-head">
+              <div class="bp-airline">✈️ ${esc(f.airline)}</div>
+              <div class="bp-date">${esc(f.date)}</div>
+            </div>
+            <div class="bp-route">
+              <div class="bp-port">
+                <div class="bp-code">${esc(dep.code)}</div>
+                <div class="bp-city">${esc(dep.city)}</div>
+              </div>
+              <div class="bp-plane-mid">
+                <div class="bp-time">${esc(f.time)}</div>
+                <div class="bp-line" aria-hidden="true"><span>✈</span></div>
+              </div>
+              <div class="bp-port">
+                <div class="bp-code">${esc(arr.code)}</div>
+                <div class="bp-city">${esc(arr.city)}</div>
+              </div>
+            </div>
+            <div class="bp-tear" aria-hidden="true"></div>
+            <div class="bp-meta-grid">
+              <div>
+                <div class="bp-meta-label">手提行李</div>
+                <div class="bp-meta-val">${esc(f.carry)}</div>
+              </div>
+              <div>
+                <div class="bp-meta-label">託運行李</div>
+                <div class="bp-meta-val">${esc(f.checked)}</div>
+              </div>
+              <div>
+                <div class="bp-meta-label">餐點</div>
+                <div class="bp-meta-val">${esc(f.meal)}</div>
+              </div>
+              <div>
+                <div class="bp-meta-label">座位</div>
+                ${seatHtml}
+              </div>
+            </div>
+          </article>`;
+      }).join("");
+    }
+
+    function renderHotels() {
+      const wrap = document.getElementById("hotelsList");
+      wrap.innerHTML = TRIP.hotels.map(h => {
+        const mediaInner = h.img
+          ? `<img src="${esc(h.img)}" alt="${esc(h.name)}" loading="lazy"
+                  onerror="this.remove(); this.parentElement.insertAdjacentText('beforeend','🏨')">`
+          : `<span aria-hidden="true">🏨</span>`;
+
+        const stationsHtml = (h.stations || []).map(st => `
+          <div class="station-pill">
+            <span class="line-dot" style="background:${esc(st.color)}"></span>
+            <span class="station-name">${esc(st.name)}</span>
+            <span class="station-line-name">${esc(st.line)}</span>
+            <span class="station-walk">${esc(st.walk)}</span>
+          </div>`).join("");
+
+        return `
+          <article class="hotel-card">
+            <div class="hotel-media">
+              <span class="hotel-city-tag">${esc(h.city)}</span>
+              ${mediaInner}
+            </div>
+            <div class="hotel-body">
+              <h3 class="hotel-name">${esc(h.name)}</h3>
+              <a class="hotel-addr-link" href="${mapsSearchUrl(h.map)}" target="_blank" rel="noopener">
+                📍 ${esc(h.address)}
+              </a>
+              <div class="station-list">${stationsHtml}</div>
+              <div class="map-actions">
+                <a class="btn-route" href="${mapsRouteUrl(h.map)}" target="_blank" rel="noopener">🧭 回住宿怎麼走</a>
+                <a class="btn-map-pin" href="${mapsSearchUrl(h.map)}" target="_blank" rel="noopener">📍 開地圖</a>
+              </div>
+            </div>
+          </article>`;
+      }).join("");
+    }
+
+    // 底部導覽切換
+    function setupTabs() {
+      const panels = {
+        itinerary: document.getElementById("panelItinerary"),
+        flights: document.getElementById("panelFlights"),
+        hotels: document.getElementById("panelHotels")
+      };
+      document.querySelectorAll(".nav-tab").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const target = btn.dataset.tab;
+          document.querySelectorAll(".nav-tab").forEach(b => b.classList.toggle("is-active", b === btn));
+          Object.entries(panels).forEach(([k, el]) => { el.hidden = k !== target; });
+          window.scrollTo({ top: 0, behavior: isReducedMotion() ? "auto" : "smooth" });
+        });
+      });
+    }
+
+    // 時間軸區域左右滑動切換前後一天
+    function setupSwipe() {
+      const area = document.getElementById("panelItinerary");
+      let startX = 0;
+      let startY = 0;
+      let ignoreSwipe = false;
+
+      area.addEventListener("touchstart", e => {
+        if (e.touches.length !== 1) return;
+        ignoreSwipe = Boolean(e.target.closest("#dateStrip"));
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+      }, { passive: true });
+
+      area.addEventListener("touchend", e => {
+        if (ignoreSwipe || !e.changedTouches.length) return;
+        const dx = e.changedTouches[0].clientX - startX;
+        const dy = e.changedTouches[0].clientY - startY;
+        if (Math.abs(dx) > 56 && Math.abs(dx) > Math.abs(dy) * 1.6) {
+          if (dx < 0 && currentDayIdx < TRIP.days.length - 1) {
+            selectDay(currentDayIdx + 1, false);
+          } else if (dx > 0 && currentDayIdx > 0) {
+            selectDay(currentDayIdx - 1, false);
+          }
+        }
+      }, { passive: true });
+    }
+
+    function init() {
+      updateHeaderAndToday();
+      renderDateStrip();
+      renderFlights();
+      renderHotels();
+      setupTabs();
+      setupSwipe();
+
+      if (todayDayIdx !== -1) {
+        selectDay(todayDayIdx, true);
+      } else {
+        selectDay(0, false);
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>
